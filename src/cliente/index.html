@@ -1,155 +1,716 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explora Bogotá</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <script defer src="./bundle.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bogotá En Tu Mano</title>
+  <script defer src="./bundle.js"></script>
+  
+  <!--  Favicon personalizado -->
+  <link rel="icon" href="img/favicon.png" type="image/png">
+  
+  <!-- FontAwesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+  <!-- Google Fonts (Poppins) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
 </head>
 
 <body>
-    <div class="container">
-        <header class="header">
-            <button class="menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <h1 class="title">Explora Bogotá</h1>
-            <button class="globe-btn">
-                <i class="fas fa-globe"></i>
-            </button>
-        </header>
+  <div class="container">
+    <header class="header">
+      <button class="menu-btn" id="menuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+      <h1 class="title">Bogotá En Tu Mano</h1>
 
-        <div class="search-bar">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" placeholder="Buscar destinos..." id="searchInput" class="search-input">
-        </div>
+      <div class="auth-buttons" id="auth-container">
+        <a href="login.html" class="btn-link">Iniciar Sesión</a>
+        <a href="register.html" class="btn-link">Crear Cuenta</a>
+      </div>
 
-        <section class="recommendations">
-            <h2 class="section-title">DESTINOS RECOMENDADOS</h2>
-            <div class="carousel-container">
-                <button class="carousel-btn left" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
-                <div class="destinations-grid" id="carousel">
-                    
-                    <!-- Tarjeta 1 -->
-                    <div class="destination-card">
-                        <img src="C:\Users\calvi\OneDrive\Escritorio\Proyecto Semilleros\dist\img" alt="Monserrate" class="destination-img">
-                        <div class="card-content">
-                            <h3>Monserrate</h3>
-                            <p>Vista panorámica de Bogotá</p>
-                            <div class="rating">★★★★★ (4.7)</div>
-                            <div class="card-footer">
-                                <a href="https://www.google.com/maps?q=Monserrate+Bogotá" target="_blank" class="btn-outline">Ir</a>
-                            </div>
-                        </div>
-                    </div>
+      <div class="dropdown-menu" id="dropdownMenu">
+        <a href="sugerencias.html" class="btn-link">Sugerencias ✉️</a>
+        <a href="soporte.html" class="btn-link">Soporte 🛠️</a>
+      </div>
+    </header>
 
-                    <!-- Tarjeta 2 -->
-                    <div class="destination-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7f/Museo_del_Oro_Bogota.jpg" alt="Museo del Oro" class="destination-img">
-                        <div class="card-content">
-                            <h3>Museo del Oro</h3>
-                            <p>Historia precolombina</p>
-                            <div class="rating">★★★★★ (4.8)</div>
-                            <div class="card-footer">
-                                <a href="https://www.google.com/maps?q=Museo+del+Oro+Bogotá" target="_blank" class="btn-outline">Ir</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tarjeta 3 -->
-                    <div class="destination-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Plaza_Bolivar_Bogota_2015.JPG" alt="Plaza de Bolívar" class="destination-img">
-                        <div class="card-content">
-                            <h3>Plaza de Bolívar</h3>
-                            <p>Centro histórico de Bogotá</p>
-                            <div class="rating">★★★★☆ (4.6)</div>
-                            <div class="card-footer">
-                                <a href="https://www.google.com/maps?q=Plaza+de+Bolívar+Bogotá" target="_blank" class="btn-outline">Ir</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tarjeta 4 -->
-                    <div class="destination-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Jardin_botanico_de_bogota.jpg" alt="Jardín Botánico" class="destination-img">
-                        <div class="card-content">
-                            <h3>Jardín Botánico</h3>
-                            <p>Flora y fauna de Colombia</p>
-                            <div class="rating">★★★★☆ (4.5)</div>
-                            <div class="card-footer">
-                                <a href="https://www.google.com/maps?q=Jardín+Botánico+Bogotá" target="_blank" class="btn-outline">Ir</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tarjeta 5 -->
-                    <div class="destination-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/La_Candelaria_Bogotá.jpg" alt="La Candelaria" class="destination-img">
-                        <div class="card-content">
-                            <h3>La Candelaria</h3>
-                            <p>Barrio histórico y cultural</p>
-                            <div class="rating">★★★★☆ (4.7)</div>
-                            <div class="card-footer">
-                                <a href="https://www.google.com/maps?q=La+Candelaria+Bogotá" target="_blank" class="btn-outline">Ir</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tarjeta 6 -->
-                    <div class="destination-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Parque_Simon_Bolivar_Bogota.jpg" alt="Parque Simón Bolívar" class="destination-img">
-                        <div class="card-content">
-                            <h3>Parque Simón Bolívar</h3>
-                            <p>Pulmón verde de Bogotá</p>
-                            <div class="rating">★★★★☆ (4.6)</div>
-                            <div class="card-footer">
-                                <a href="https://www.google.com/maps?q=Parque+Simón+Bolívar+Bogotá" target="_blank" class="btn-outline">Ir</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tarjeta 7 -->
-                    <div class="destination-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Cerro_de_Guadalupe_Bogotá.jpg" alt="Cerro de Guadalupe" class="destination-img">
-                        <div class="card-content">
-                            <h3>Cerro de Guadalupe</h3>
-                            <p>Mirador panorámico</p>
-                            <div class="rating">★★★★★ (4.7)</div>
-                            <div class="card-footer">
-                                <a href="https://www.google.com/maps?q=Cerro+de+Guadalupe+Bogotá" target="_blank" class="btn-outline">Ir</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tarjeta 8 -->
-                    <div class="destination-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Maloka_Centro_Interactivo_de_Ciencia_y_Tecnología_Bogotá.jpg" alt="Maloka" class="destination-img">
-                        <div class="card-content">
-                            <h3>Maloka</h3>
-                            <p>Ciencia y tecnología interactiva</p>
-                            <div class="rating">★★★★☆ (4.5)</div>
-                            <div class="card-footer">
-                                <a href="https://www.google.com/maps?q=Maloka+Bogotá" target="_blank" class="btn-outline">Ir</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <button class="carousel-btn right" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
-            </div>
-        </section>
-
-        <section class="map-section">
-            <h2 class="section-title">MAPA INTERACTIVO</h2>
-            <div id="map"></div>
-        </section>
+    <div class="search-bar">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" placeholder="Buscar destinos..." id="searchInput" class="search-input">
     </div>
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=KEYDEGOOGLEMAPS&callback=initMap"></script>
+    <section class="recommendations">
+      <h2 class="section-title">DESTINOS RECOMENDADOS</h2>
+      
+      <div class="carousel-container">
+        <button class="carousel-btn left" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+        <div class="destinations-grid" id="carousel">
+
+          <!-- DESTINOS -->
+          <!-- Monserrate -->
+          <div class="destination-card">
+            <span class="badge-popular">Popular</span>
+            <img src="/img/Monserrate.jpg" alt="Monserrate" class="destination-img">
+            <div class="card-content">
+              <h3>Monserrate</h3>
+              <p>Vista panorámica de Bogotá</p>
+              <div class="rating">★★★★★ (4.7)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Monserrate+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Museo del Oro -->
+          <div class="destination-card">
+            <span class="badge-popular">Popular</span>
+            <img src="/img/Museodeloro.jpg" alt="Museo del Oro" class="destination-img">
+            <div class="card-content">
+              <h3>Museo del Oro</h3>
+              <p>Historia precolombina</p>
+              <div class="rating">★★★★★ (4.8)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Museo+del+Oro+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Plaza de Bolívar -->
+          <div class="destination-card">
+            <img src="/img/Plazabolivar.jpg" alt="Plaza de Bolívar" class="destination-img">
+            <div class="card-content">
+              <h3>Plaza de Bolívar</h3>
+              <p>Centro histórico de Bogotá</p>
+              <div class="rating">★★★★☆ (4.6)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Plaza+de+Bolívar+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Jardín Botánico -->
+          <div class="destination-card">
+            <img src="/img/Jardinbotanico.jpg" alt="Jardín Botánico" class="destination-img">
+            <div class="card-content">
+              <h3>Jardín Botánico</h3>
+              <p>Flora y fauna de Colombia</p>
+              <div class="rating">★★★★☆ (4.5)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Jardín+Botánico+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- La Candelaria -->
+          <div class="destination-card">
+            <img src="/img/Lacandelaria.jpg" alt="La Candelaria" class="destination-img">
+            <div class="card-content">
+              <h3>La Candelaria</h3>
+              <p>Barrio histórico y cultural</p>
+              <div class="rating">★★★★☆ (4.7)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=La+Candelaria+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Parque Simón Bolívar -->
+          <div class="destination-card">
+            <span class="badge-popular">Popular</span>
+            <img src="/img/Parquesimon.jpg" alt="Parque Simón Bolívar" class="destination-img">
+            <div class="card-content">
+              <h3>Parque Simón Bolívar</h3>
+              <p>Pulmón verde de Bogotá</p>
+              <div class="rating">★★★★☆ (4.6)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Parque+Simón+Bolívar+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cerro de Guadalupe -->
+          <div class="destination-card">
+            <img src="/img/Cerrodeguadalupe.jpg" alt="Cerro de Guadalupe" class="destination-img">
+            <div class="card-content">
+              <h3>Cerro de Guadalupe</h3>
+              <p>Mirador panorámico</p>
+              <div class="rating">★★★★★ (4.7)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Cerro+de+Guadalupe+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Maloka -->
+          <div class="destination-card">
+            <img src="/img/Maloka.jpg" alt="Maloka" class="destination-img">
+            <div class="card-content">
+              <h3>Maloka</h3>
+              <p>Ciencia y tecnología interactiva</p>
+              <div class="rating">★★★★☆ (4.5)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Maloka+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Teatro Colón -->
+          <div class="destination-card">
+            <img src="/img/Teatrocolon.jpg" alt="Teatro Colón" class="destination-img">
+            <div class="card-content">
+              <h3>Teatro Colón</h3>
+              <p>Patrimonio cultural restaurado</p>
+              <div class="rating">★★★★★ (4.6)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Teatro+Colón+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Planetario de Bogotá -->
+          <div class="destination-card">
+            <span class="badge-popular">Popular</span>
+            <img src="/img/Planetario.jpg" alt="Planetario de Bogotá" class="destination-img">
+            <div class="card-content">
+              <h3>Planetario de Bogotá</h3>
+              <p>Observación astronómica y exposiciones</p>
+              <div class="rating">★★★★☆ (4.5)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Planetario+de+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Museo Nacional -->
+          <div class="destination-card">
+            <span class="badge-popular">Popular</span>
+            <img src="/img/MuseoNacional.jpg" alt="Museo Nacional" class="destination-img">
+            <div class="card-content">
+              <h3>Museo Nacional</h3>
+              <p>Museo histórico más antiguo del país</p>
+              <div class="rating">★★★★★ (4.7)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Museo+Nacional+de+Colombia" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chorro de Quevedo -->
+          <div class="destination-card">
+            <span class="badge-popular">Popular</span>
+            <img src="/img/ChorroQuevedo.jpg" alt="Chorro de Quevedo" class="destination-img">
+            <div class="card-content">
+              <h3>Chorro de Quevedo</h3>
+              <p>Lugar histórico de la fundación de Bogotá</p>
+              <div class="rating">★★★★☆ (4.5)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Chorro+de+Quevedo+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mirador de La Calera -->
+          <div class="destination-card">
+            <img src="/img/MiradorCalera.jpg" alt="Mirador de La Calera" class="destination-img">
+            <div class="card-content">
+              <h3>Mirador de La Calera</h3>
+              <p>Vista panorámica nocturna de la ciudad</p>
+              <div class="rating">★★★★★ (4.8)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Mirador+de+La+Calera+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Zona T -->
+          <div class="destination-card">
+            <span class="badge-popular">Popular</span>
+            <img src="/img/ZonaT.jpg" alt="Zona T" class="destination-img">
+            <div class="card-content">
+              <h3>Zona T</h3>
+              <p>Zona comercial y gastronómica</p>
+              <div class="rating">★★★★☆ (4.4)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Zona+T+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Museo de Arte Moderno -->
+          <div class="destination-card">
+            <img src="/img/Mambo.jpg" alt="Museo de Arte Moderno" class="destination-img">
+            <div class="card-content">
+              <h3>Museo de Arte Moderno</h3>
+              <p>Arte contemporáneo colombiano</p>
+              <div class="rating">★★★★☆ (4.5)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Museo+de+Arte+Moderno+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Biblioteca Virgilio Barco -->
+          <div class="destination-card">
+            <img src="/img/VirgilioBarco.jpg" alt="Biblioteca Virgilio Barco" class="destination-img">
+            <div class="card-content">
+              <h3>Biblioteca Virgilio Barco</h3>
+              <p>Arquitectura moderna y lectura al aire libre</p>
+              <div class="rating">★★★★☆ (4.7)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Biblioteca+Virgilio+Barco+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Museo Botero -->
+          <div class="destination-card">
+            <span class="badge-popular">Popular</span>
+            <img src="/img/MuseoBotero.jpg" alt="Museo Botero" class="destination-img">
+            <div class="card-content">
+              <h3>Museo Botero</h3>
+              <p>Obras de Fernando Botero y arte internacional</p>
+              <div class="rating">★★★★★ (4.8)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Museo+Botero+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quinta de Bolívar -->
+          <div class="destination-card">
+            <img src="/img/QuintaBolivar.jpg" alt="Quinta de Bolívar" class="destination-img">
+            <div class="card-content">
+              <h3>Quinta de Bolívar</h3>
+              <p>Residencia histórica de Simón Bolívar</p>
+              <div class="rating">★★★★☆ (4.6)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Casa+Museo+Quinta+de+Bolívar+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Museo del Vidrio -->
+          <div class="destination-card">
+            <img src="/img/MuseoVidrio.jpg" alt="Museo del Vidrio" class="destination-img">
+            <div class="card-content">
+              <h3>Museo del Vidrio</h3>
+              <p>Oficios artesanales de vidrio en Bogotá</p>
+              <div class="rating">★★★★☆ (4.4)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Museo+del+Vidrio+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cinemateca Distrital -->
+          <div class="destination-card">
+            <img src="/img/Cinemateca.jpg" alt="Cinemateca Distrital" class="destination-img">
+            <div class="card-content">
+              <h3>Cinemateca Distrital</h3>
+              <p>Cine alternativo y colombiano</p>
+              <div class="rating">★★★★☆ (4.7)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Cinemateca+Distrital+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+                    <!-- Parque de los Novios -->
+          <div class="destination-card">
+            <span class="badge-popular">Popular</span>
+            <img src="/img/ParqueNovios.jpg" alt="Parque de los Novios" class="destination-img">
+            <div class="card-content">
+              <h3>Parque de los Novios</h3>
+              <p>Parque natural con lagos y picnic</p>
+              <div class="rating">★★★★☆ (4.6)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Parque+de+los+Novios+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Santuario Nuestra Señora del Carmen -->
+          <div class="destination-card">
+            <img src="/img/SantuarioCarmen.jpg" alt="Santuario Nuestra Señora del Carmen" class="destination-img">
+            <div class="card-content">
+              <h3>Santuario Nuestra Señora del Carmen</h3>
+              <p>Arquitectura gótica en el corazón de La Candelaria</p>
+              <div class="rating">★★★★★ (4.7)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Santuario+Nuestra+Señora+del+Carmen+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Centro Cultural Gabriel García Márquez -->
+          <div class="destination-card">
+            <span class="badge-popular">Popular</span>
+            <img src="/img/CentroGabo.jpg" alt="Centro Cultural Gabriel García Márquez" class="destination-img">
+            <div class="card-content">
+              <h3>Centro Cultural Gabriel García Márquez</h3>
+              <p>Espacio cultural con librería, arte y cafés</p>
+              <div class="rating">★★★★☆ (4.6)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Centro+Cultural+Gabriel+García+Márquez+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Museo Militar -->
+          <div class="destination-card">
+            <img src="/img/MuseoMilitar.jpg" alt="Museo Militar" class="destination-img">
+            <div class="card-content">
+              <h3>Museo Militar</h3>
+              <p>Historia de las fuerzas armadas colombianas</p>
+              <div class="rating">★★★★☆ (4.5)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Museo+Militar+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Museo de Bogotá -->
+          <div class="destination-card">
+            <img src="/img/MuseoBogota.jpg" alt="Museo de Bogotá" class="destination-img">
+            <div class="card-content">
+              <h3>Museo de Bogotá</h3>
+              <p>Historia urbana y patrimonial de la ciudad</p>
+              <div class="rating">★★★★☆ (4.6)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Museo+de+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+                    <!-- Parque Nacional Enrique Olaya Herrera -->
+          <div class="destination-card">
+            <img src="/img/ParqueOlaya.jpg" alt="Parque Nacional Enrique Olaya Herrera" class="destination-img">
+            <div class="card-content">
+              <h3>Parque Nacional Enrique Olaya Herrera</h3>
+              <p>Amplia zona verde con senderos y monumentos históricos</p>
+              <div class="rating">★★★★☆ (4.6)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Parque+Nacional+Enrique+Olaya+Herrera+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Museo Santa Clara -->
+          <div class="destination-card">
+            <img src="/img/MuseoSantaClara.jpg" alt="Museo Santa Clara" class="destination-img">
+            <div class="card-content">
+              <h3>Museo Santa Clara</h3>
+              <p>Iglesia colonial convertida en museo</p>
+              <div class="rating">★★★★☆ (4.5)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Museo+Santa+Clara+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Parque Mundo Aventura -->
+          <div class="destination-card">
+            <span class="badge-popular">Popular</span>
+            <img src="/img/MundoAventura.jpg" alt="Parque Mundo Aventura" class="destination-img">
+            <div class="card-content">
+              <h3>Parque Mundo Aventura</h3>
+              <p>Parque temático con atracciones para toda la familia</p>
+              <div class="rating">★★★★☆ (4.4)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Parque+Mundo+Aventura+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Museo de los Niños -->
+          <div class="destination-card">
+            <img src="/img/MuseoNinos.jpg" alt="Museo de los Niños" class="destination-img">
+            <div class="card-content">
+              <h3>Museo de los Niños</h3>
+              <p>Espacio interactivo para aprender jugando</p>
+              <div class="rating">★★★★☆ (4.5)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Museo+de+los+Niños+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Museo de Ciencias Planetario -->
+          <div class="destination-card">
+            <span class="badge-popular">Popular</span>
+            <img src="/img/PlanetarioCiencias.jpg" alt="Museo de Ciencias Planetario" class="destination-img">
+            <div class="card-content">
+              <h3>Museo de Ciencias Planetario</h3>
+              <p>Explora el universo y la ciencia en un solo lugar</p>
+              <div class="rating">★★★★☆ (4.6)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Planetario+de+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Plaza La Santamaría -->
+          <div class="destination-card">
+            <img src="/img/Santamaria.jpg" alt="Plaza La Santamaría" class="destination-img">
+            <div class="card-content">
+              <h3>Plaza La Santamaría</h3>
+              <p>Icónica plaza de toros y eventos culturales</p>
+              <div class="rating">★★★★☆ (4.4)</div>
+              <div class="card-footer">
+                <a href="https://www.google.com/maps?q=Plaza+La+Santamaría+Bogotá" target="_blank" class="btn-outline">Ir</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <button class="carousel-btn right" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <section class="map-section">
+      <h2 class="section-title">MAPA INTERACTIVO</h2>
+      <div id="map"></div>
+    </section>
+
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- Script para cargar mapa y marcadores -->
+  <script>
+   document.addEventListener('DOMContentLoaded', () => {
+  const map = L.map('map').setView([4.611, -74.0721], 13);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  const destinos = [
+    { 
+      nombre: "Monserrate", 
+      coords: [4.6054, -74.0551],
+      url: "https://www.google.com/maps?q=Monserrate+Bogotá"
+    },
+    { 
+      nombre: "Museo del Oro", 
+      coords: [4.6010, -74.0721],
+      url: "https://www.google.com/maps?q=Museo+del+Oro+Bogotá"
+    },
+    { 
+      nombre: "Plaza de Bolívar", 
+      coords: [4.5981, -74.0760],
+      url: "https://www.google.com/maps?q=Plaza+de+Bolívar+Bogotá"
+    },
+    { 
+      nombre: "Jardín Botánico", 
+      coords: [4.6596, -74.0935],
+      url: "https://www.google.com/maps?q=Jardín+Botánico+Bogotá"
+    },
+    { 
+      nombre: "La Candelaria", 
+      coords: [4.5952, -74.0758],
+      url: "https://www.google.com/maps?q=La+Candelaria+Bogotá"
+    },
+    { 
+      nombre: "Parque Simón Bolívar", 
+      coords: [4.6584, -74.0936],
+      url: "https://www.google.com/maps?q=Parque+Simón+Bolívar+Bogotá"
+    },
+    { 
+      nombre: "Cerro de Guadalupe", 
+      coords: [4.5895, -74.0619],
+      url: "https://www.google.com/maps?q=Cerro+de+Guadalupe+Bogotá"
+    },
+    { 
+      nombre: "Maloka", 
+      coords: [4.6467, -74.1112],
+      url: "https://www.google.com/maps?q=Maloka+Bogotá"
+    },
+    {
+      nombre: "Teatro Colón",
+      coords: [4.5982, -74.0736],
+      url: "https://www.google.com/maps?q=Teatro+Colón+Bogotá"
+    },
+    {
+      nombre: "Planetario de Bogotá",
+      coords: [4.6097, -74.0701],
+      url: "https://www.google.com/maps?q=Planetario+de+Bogotá"
+    },
+    {
+      nombre: "Museo Nacional",
+      coords: [4.6156, -74.0685],
+      url: "https://www.google.com/maps?q=Museo+Nacional+de+Colombia"
+    },
+    {
+      nombre: "Chorro de Quevedo",
+      coords: [4.5953, -74.0751],
+      url: "https://www.google.com/maps?q=Chorro+de+Quevedo+Bogotá"
+    },
+    {
+      nombre: "Mirador de La Calera",
+      coords: [4.6428, -73.9996],
+      url: "https://www.google.com/maps?q=Mirador+de+La+Calera+Bogotá"
+    },
+    {
+      nombre: "Zona T",
+      coords: [4.6657, -74.0536],
+      url: "https://www.google.com/maps?q=Zona+T+Bogotá"
+    },
+    {
+      nombre: "Museo de Arte Moderno",
+      coords: [4.6110, -74.0723],
+      url: "https://www.google.com/maps?q=Museo+de+Arte+Moderno+Bogotá"
+    },
+    {
+      nombre: "Biblioteca Virgilio Barco",
+      coords: [4.6580, -74.0907],
+      url: "https://www.google.com/maps?q=Biblioteca+Virgilio+Barco+Bogotá"
+    },
+    {
+      nombre: "Museo Botero",
+      coords: [4.5980, -74.0758],
+      url: "https://www.google.com/maps?q=Museo+Botero+Bogotá"
+    },
+    {
+      nombre: "Quinta de Bolívar",
+      coords: [4.6050, -74.0702],
+      url: "https://www.google.com/maps?q=Casa+Museo+Quinta+de+Bolívar+Bogotá"
+    },
+    {
+      nombre: "Museo del Vidrio",
+      coords: [4.5456, -74.1009],
+      url: "https://www.google.com/maps?q=Museo+del+Vidrio+Bogotá"
+    },
+    {
+      nombre: "Cinemateca Distrital",
+      coords: [4.6125, -74.0709],
+      url: "https://www.google.com/maps?q=Cinemateca+Distrital+Bogotá"
+    },
+    {
+      nombre: "Parque de los Novios",
+      coords: [4.6586, -74.0796],
+      url: "https://www.google.com/maps?q=Parque+de+los+Novios+Bogotá"
+    },
+    {
+      nombre: "Santuario Nuestra Señora del Carmen",
+      coords: [4.5989, -74.0752],
+      url: "https://www.google.com/maps?q=Santuario+Nuestra+Señora+del+Carmen+Bogotá"
+    },
+    {
+      nombre: "Centro Cultural Gabriel García Márquez",
+      coords: [4.5955, -74.0755],
+      url: "https://www.google.com/maps?q=Centro+Cultural+Gabriel+García+Márquez+Bogotá"
+    },
+    {
+      nombre: "Museo Militar de Colombia",
+      coords: [4.5984, -74.0765],
+      url: "https://www.google.com/maps?q=Museo+Militar+Bogotá"
+    },
+    {
+      nombre: "Museo de Bogotá",
+      coords: [4.5974, -74.0760],
+      url: "https://www.google.com/maps?q=Museo+de+Bogotá"
+    },
+    {
+      nombre: "Parque Nacional Enrique Olaya Herrera",
+      coords: [4.6199, -74.0623],
+      url: "https://www.google.com/maps?q=Parque+Nacional+Enrique+Olaya+Herrera+Bogotá"
+    },
+    {
+      nombre: "Museo de Ciencias Planetario",
+      coords: [4.6096, -74.0703],
+      url: "https://www.google.com/maps?q=Planetario+de+Bogotá"
+    },
+    {
+      nombre: "Museo Santa Clara",
+      coords: [4.5989, -74.0763],
+      url: "https://www.google.com/maps?q=Museo+Santa+Clara+Bogotá"
+    },
+    {
+      nombre: "Parque Mundo Aventura",
+      coords: [4.6217, -74.1532],
+      url: "https://www.google.com/maps?q=Parque+Mundo+Aventura+Bogotá"
+    },
+    {
+      nombre: "Museo de los Niños",
+      coords: [4.6783, -74.1009],
+      url: "https://www.google.com/maps?q=Museo+de+los+Niños+Bogotá"
+    }
+    
+  ];
+
+    
+
+  destinos.forEach(destino => {
+    L.marker(destino.coords)
+      .addTo(map)
+      .bindPopup(`
+        <b>${destino.nombre}</b><br>
+        <a href="${destino.url}" target="_blank">Ver en Google Maps</a>
+      `);
+  });
+});
+
+  </script>
+
+  <!-- Script para el login dinámico -->
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const contenedor = document.getElementById('auth-container');
+      try {
+        const respuesta = await fetch('/api/usuario', {
+          method: 'GET',
+          credentials: 'include'
+        });
+        const datos = await respuesta.json();
+
+        if (datos.usuario) {
+          contenedor.innerHTML = `
+            <div class="user-info">
+              Bienvenido, ${datos.usuario.nombre}
+              <button onclick="logout()" class="btn-link">Cerrar Sesión</button>
+            </div>
+          `;
+        } else {
+          contenedor.innerHTML = `
+            <a href="login.html" class="btn-link">Iniciar Sesión</a>
+            <a href="register.html" class="btn-link">Crear Cuenta</a>
+          `;
+        }
+      } catch (error) {
+        console.error('Error al consultar usuario:', error);
+        contenedor.innerHTML = `
+          <a href="login.html" class="btn-link">Iniciar Sesión</a>
+          <a href="register.html" class="btn-link">Crear Cuenta</a>
+        `;
+      }
+    });
+
+    function logout() {
+      fetch('/logout', {
+        method: 'GET',
+        credentials: 'include'
+      })
+      .then(() => {
+        window.location.href = '/';
+      })
+      .catch(err => console.error('Error cerrando sesión', err));
+    }
+  </script>
+   
+
 </body>
 </html>
+
+
+
 
 
 

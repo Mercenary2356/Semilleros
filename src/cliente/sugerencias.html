@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sugerencias</title>
+    <link rel="stylesheet" href="css/stylessugerencias.css">
+</head>
+<body>
+     <!-- Botón de inicio como texto -->
+<a href="index.html" class="btn-inicio">Inicio</a>
+    <div class="form-container">
+        <h2>Envíanos tus Sugerencias</h2>
+        <form id="formSugerencias">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" id="correo" name="correo" required>
+
+            <label for="sugerencia">Tu Sugerencia:</label>
+            <textarea id="sugerencia" name="sugerencia" rows="4" required></textarea>
+
+            <button type="submit">Enviar Sugerencia</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("formSugerencias").addEventListener("submit", function(event) {
+            event.preventDefault();  // Prevenir el envío tradicional del formulario
+
+            // Obtener los datos del formulario
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+
+            // Enviar los datos al servidor
+            fetch('/sugerencias', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en el servidor');
+                }
+                return response.json(); // Ahora SIEMPRE va a ser JSON
+            })
+            .then(result => {
+                alert(result.mensaje); // Mostramos el mensaje que viene del servidor
+                event.target.reset();
+            })
+            .catch(error => {
+                alert('Hubo un error al enviar la sugerencia.');
+                console.error(error);
+            });
+            
+        });
+    </script>
+</body>
+</html>

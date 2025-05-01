@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soporte</title>
+    <link rel="stylesheet" href="css/stylessoporte.css">
+</head>
+<body>
+     <!-- Botón de inicio como texto -->
+<a href="index.html" class="btn-inicio">Inicio</a>
+    <div class="support-container">
+        <h2>Centro de Soporte</h2>
+        <form id="formSoporte">
+            <label for="usuario">Nombre o Usuario:</label>
+            <input type="text" id="usuario" name="usuario" required>
+
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="problema">Describe tu problema:</label>
+            <textarea id="problema" name="problema" rows="5" required></textarea>
+
+            <label for="categoria">Categoría:</label>
+            <select id="categoria" name="categoria">
+                <option value="tecnico">Problema Técnico</option>
+                <option value="cuenta">Cuenta y Acceso</option>
+                <option value="otro">Otro</option>
+            </select>
+
+            <button type="submit">Enviar Solicitud</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("formSoporte").addEventListener("submit", function(event) {
+            event.preventDefault();  // Prevenir el envío tradicional del formulario
+
+            // Obtener los datos del formulario
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+
+            // Enviar los datos al servidor
+            fetch('/soporte', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                alert('Soporte enviado correctamente!');
+                // Opcional: limpiar el formulario o redirigir al usuario
+                event.target.reset();
+            })
+            .catch(error => {
+                alert('Hubo un error al enviar la solicitud de soporte.');
+            });
+        });
+    </script>
+</body>
+</html>
+

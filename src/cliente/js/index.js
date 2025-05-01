@@ -89,3 +89,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const menuBtn = document.getElementById("menuBtn");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+
+    if (menuBtn && dropdownMenu) {
+        menuBtn.addEventListener("click", () => {
+            dropdownMenu.classList.toggle("show"); // Alterna la clase 'show'
+        });
+    }
+});
+
